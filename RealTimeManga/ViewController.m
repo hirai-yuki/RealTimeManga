@@ -75,7 +75,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         // プレビュー表示中のレイヤーを画像にして保存する
         UIGraphicsBeginImageContext(self.previewLayer.bounds.size);
-        [self.previewLayer renderInContext:UIGraphicsGetCurrentContext()];
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        [self.view.layer renderInContext:ctx];
+        [self.previewLayer renderInContext:ctx];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
@@ -103,9 +105,9 @@
     
     // フロントカメラを検索
 	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-		if ([d position] == AVCaptureDevicePositionFront) {
+		if ([d position] == AVCaptureDevicePositionBack) {
 			device = d;
-            self.isUsingFrontFacingCamera = YES;
+            self.isUsingFrontFacingCamera = NO;
 			break;
 		}
 	}
