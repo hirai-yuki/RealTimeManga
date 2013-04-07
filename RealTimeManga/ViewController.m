@@ -105,9 +105,9 @@
     
     // フロントカメラを検索
 	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-		if ([d position] == AVCaptureDevicePositionBack) {
+		if ([d position] == AVCaptureDevicePositionFront) {
 			device = d;
-            self.isUsingFrontFacingCamera = NO;
+            self.isUsingFrontFacingCamera = YES;
 			break;
 		}
 	}
